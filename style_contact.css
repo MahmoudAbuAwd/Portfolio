@@ -1,0 +1,817 @@
+/* ===== BASE STYLES ===== */
+:root {
+    /* Color Palette */
+    --dark-blue: #0a192f;
+    --medium-blue: #172a45;
+    --light-blue: #303c55;
+    --slate: #8892b0;
+    --light-slate: #a8b2d1;
+    --lightest-slate: #ccd6f6;
+    --white: #e6f1ff;
+    --neon-cyan: #64ffda;
+    --neon-purple: #7f5af0;
+    --glow-cyan: rgba(100, 255, 218, 0.2);
+    --glow-purple: rgba(127, 90, 240, 0.2);
+    
+    /* AI Theme Colors */
+    --ai-dark: #050b18;
+    --ai-accent: #00eeff;
+    --ai-secondary: #7b2fff;
+    --ai-tertiary: #ff36ab;
+    --ai-glow: rgba(0, 238, 255, 0.15);
+    --ai-grid: rgba(65, 184, 255, 0.07);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--dark-blue);
+    color: var(--light-slate);
+    line-height: 1.6;
+    font-size: 16px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 30%, var(--ai-glow) 0%, transparent 70%),
+        radial-gradient(circle at 80% 70%, rgba(127, 90, 240, 0.15) 0%, transparent 70%);
+    z-index: -2;
+    pointer-events: none;
+}
+
+/* Neural Network Grid Background */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(to right, var(--ai-grid) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--ai-grid) 1px, transparent 1px);
+    background-size: 30px 30px;
+    z-index: -1;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+h1, h2, h3, h4, h5 {
+    color: var(--lightest-slate);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: var(--neon-cyan);
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    color: var(--white);
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ===== NAVBAR ===== */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: rgba(5, 11, 24, 0.8);
+    backdrop-filter: blur(12px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(0, 229, 255, 0.1);
+}
+
+.nav-brand .logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--lightest-slate);
+}
+
+.logo-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+    margin-right: 10px;
+    color: var(--dark-blue);
+    font-weight: 700;
+    font-size: 1.2rem;
+    box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.logo-icon::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+    );
+    animation: shimmer 3s infinite;
+    transform: rotate(45deg);
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    color: var(--light-slate);
+    font-weight: 500;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--neon-cyan);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after, .nav-link.active::after {
+    width: 100%;
+}
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--neon-cyan);
+    border-radius: 8px;
+    color: var(--neon-cyan);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.contact-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+    transition: all 0.5s ease;
+    z-index: -1;
+}
+
+.contact-btn:hover {
+    color: var(--dark-blue);
+}
+
+.contact-btn:hover::before {
+    width: 100%;
+}
+
+.menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--light-slate);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.menu-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+/* Mobile Menu Styles */
+.nav-links.active {
+    right: 0;
+}
+
+.menu-overlay.active {
+    display: block;
+}
+
+/* ===== CONTACT SECTION ===== */
+.contact-section {
+    padding: 9rem 5% 5rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.contact-section h1 {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(90deg, var(--ai-accent), var(--ai-tertiary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 20px rgba(0, 238, 255, 0.3);
+    animation: pulseText 3s infinite alternate;
+}
+
+@keyframes pulseText {
+    0% {
+        text-shadow: 0 0 5px rgba(0, 238, 255, 0.3);
+    }
+    100% {
+        text-shadow: 0 0 15px rgba(0, 238, 255, 0.7);
+    }
+}
+
+.contact-section h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 25%;
+    width: 50%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--ai-accent), var(--ai-secondary));
+    border-radius: 2px;
+}
+
+/* Neural Nodes Animation */
+.contact-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle at center, var(--ai-grid) 1px, transparent 1px);
+    background-size: 50px 50px;
+    opacity: 0.5;
+    animation: pulse 4s infinite alternate;
+    pointer-events: none;
+    z-index: -1;
+}
+
+@keyframes pulse {
+    0% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0.7;
+    }
+}
+
+/* Form Styles */
+form {
+    width: 100%;
+    max-width: 600px;
+    background: rgba(23, 42, 69, 0.7);
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(100, 255, 218, 0.1);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(30px);
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Floating particles around the form */
+form::before, form::after {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--ai-glow), transparent 70%);
+    z-index: -1;
+}
+
+form::before {
+    top: -100px;
+    left: -100px;
+    animation: floatAround 15s infinite alternate ease-in-out;
+}
+
+form::after {
+    bottom: -100px;
+    right: -100px;
+    animation: floatAround 20s infinite alternate-reverse ease-in-out;
+}
+
+@keyframes floatAround {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(50px, 25px);
+    }
+    100% {
+        transform: translate(15px, 50px);
+    }
+}
+
+/* Form shimmer effect */
+form::before {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: -100%;
+    width: 150%;
+    height: 150%;
+    background: linear-gradient(
+        45deg,
+        transparent 20%,
+        rgba(0, 238, 255, 0.1) 40%,
+        rgba(127, 90, 240, 0.1) 60%,
+        transparent 80%
+    );
+    transform: rotate(45deg);
+    transition: all 0.3s ease;
+    animation: formShimmer 6s infinite;
+}
+
+@keyframes formShimmer {
+    0% {
+        top: -100%;
+        left: -100%;
+    }
+    100% {
+        top: 100%;
+        left: 100%;
+    }
+}
+
+.form-group {
+    margin-bottom: 1.8rem;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+    color: var(--lightest-slate);
+    letter-spacing: 0.5px;
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(10, 25, 47, 0.6);
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    border-radius: 8px;
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--ai-accent);
+    box-shadow: 0 0 15px rgba(0, 238, 255, 0.3);
+}
+
+/* Input animation effects */
+.form-control:focus + .form-label {
+    transform: translateX(5px);
+}
+
+.form-control::placeholder {
+    color: var(--slate);
+    opacity: 0.7;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 150px;
+}
+
+/* Glowing effect for inputs on focus */
+.form-control:focus {
+    animation: inputGlow 1.5s infinite alternate;
+}
+
+@keyframes inputGlow {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 238, 255, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 15px rgba(0, 238, 255, 0.5);
+    }
+}
+
+/* Submit Button */
+.submit-btn {
+    display: inline-block;
+    padding: 0.9rem 2rem;
+    background: transparent;
+    border: 2px solid var(--ai-accent);
+    border-radius: 8px;
+    color: var(--ai-accent);
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--ai-accent), var(--ai-secondary));
+    transition: all 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    z-index: -1;
+}
+
+.submit-btn:hover {
+    color: var(--dark-blue);
+}
+
+.submit-btn:hover::before {
+    width: 100%;
+}
+
+/* Button pulse effect */
+.submit-btn {
+    animation: buttonPulse 3s infinite alternate;
+}
+
+@keyframes buttonPulse {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 238, 255, 0.3);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(0, 238, 255, 0.6);
+    }
+}
+
+/* Response Message */
+.response-message {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.response-message:not(:empty) {
+    opacity: 1;
+    transform: translateY(0);
+    background: rgba(100, 255, 218, 0.1);
+    border: 1px solid var(--neon-cyan);
+    color: var(--neon-cyan);
+    animation: messageGlow 2s infinite alternate;
+}
+
+@keyframes messageGlow {
+    0% {
+        box-shadow: 0 0 5px rgba(0, 238, 255, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 15px rgba(0, 238, 255, 0.4);
+    }
+}
+
+/* Neural Network Animation */
+.synapses {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.synapse {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: var(--ai-accent);
+    border-radius: 50%;
+    filter: blur(1px);
+    opacity: 0.5;
+    animation: pulseSynapse 4s infinite alternate;
+}
+
+@keyframes pulseSynapse {
+    0% {
+        transform: scale(1);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0.6;
+    }
+}
+
+/* Add dynamic effects to form elements */
+.form-group:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.form-group:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.form-group:nth-child(4) {
+    animation-delay: 0.8s;
+}
+
+/* Input focus animation */
+@keyframes inputFocus {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.form-control:focus {
+    background: linear-gradient(
+        270deg,
+        rgba(10, 25, 47, 0.8),
+        rgba(23, 42, 69, 0.8),
+        rgba(10, 25, 47, 0.8)
+    );
+    background-size: 200% 100%;
+    animation: inputFocus 3s ease infinite;
+}
+
+/* Floating neural nodes around the form */
+#neuralNodes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ===== FOOTER ===== */
+footer {
+    background-color: var(--dark-blue);
+    padding: 3rem 5% 1.5rem;
+    position: relative;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+.footer-logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--white);
+}
+
+.footer-nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer-nav a {
+    color: var(--light-slate);
+    transition: all 0.3s ease;
+}
+
+.footer-nav a:hover {
+    color: var(--neon-cyan);
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icon {
+    color: var(--light-slate);
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    color: var(--neon-cyan);
+    transform: translateY(-3px);
+}
+
+.footer-bottom {
+    margin-top: 2rem;
+    text-align: center;
+    color: var(--slate);
+    font-size: 0.9rem;
+}
+
+.footer-bottom span {
+    color: var(--neon-cyan);
+}
+
+/* ===== RESPONSIVE STYLES ===== */
+@media (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 70%;
+        background: var(--medium-blue);
+        flex-direction: column;
+        justify-content: center;
+        padding: 2rem;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+        transition: right 0.3s ease;
+        z-index: 1000;
+    }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .menu-btn {
+        display: block;
+    }
+
+    .menu-overlay.active {
+        display: block;
+    }
+
+    .contact-section h1 {
+        font-size: 2.2rem;
+    }
+
+    form {
+        padding: 1.5rem;
+    }
+
+    .footer-nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+}
+
+/* Add this to your HTML to create the neural network */
+@keyframes neuralConnection {
+    0%, 100% {
+        opacity: 0.4;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+    }
+}
+/* Add these styles to your existing style_contact.css file */
+
+.response-message.success {
+    background-color: rgba(39, 174, 96, 0.1);
+    color: #27ae60;
+    border-left: 4px solid #27ae60;
+    padding: 1rem;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  .response-message.error {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    border-left: 4px solid #e74c3c;
+    padding: 1rem;
+    animation: fadeIn 0.5s ease-out;
+  }
+  
+  /* Button loading state */
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+/* Add these styles to your style_contact.css file */
+
+.response-message {
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    display: none;
+    font-weight: 500;
+  }
+  
+  .response-message:not(:empty) {
+    display: block;
+  }
+  
+  .response-message.success {
+    background-color: #e6f7e6;
+    color: #2e7d32;
+    border: 1px solid #c8e6c9;
+  }
+  
+  .response-message.error {
+    background-color: #fdecea;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+  }
+  
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
